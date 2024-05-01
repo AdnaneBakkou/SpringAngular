@@ -8,6 +8,7 @@ import ma.bakkou.spring_angular.Entities.Student;
 import ma.bakkou.spring_angular.Repository.PaymentRepository;
 import ma.bakkou.spring_angular.Repository.StudentRepository;
 // import org.springframework.security.core.parameters.P;
+import ma.bakkou.spring_angular.Services.PaymentService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,7 @@ import java.util.UUID;
 public class PaymentRestController {
     private StudentRepository studentRepository;
     private PaymentRepository paymentRepository;
+    private PaymentService paymentService;
 
     public PaymentRestController(StudentRepository studentRepository, PaymentRepository paymentRepository) {
         this.studentRepository = studentRepository;
@@ -71,36 +73,19 @@ public class PaymentRestController {
 
     @PutMapping("/payment/{id}")
     public Payment updatePaymentStatus(@RequestParam PaymentStatus status, @PathVariable Long id){
-        Payment payment = paymentRepository.findById(id).get();
-        payment.setStatus(status);
-        return paymentRepository.save(payment);
+       return paymentService.updatePaymentStatus(status,id);
     }
 
 
     @PostMapping(path = "/payments" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Payment SavePayment(@RequestParam MultipartFile file , LocalDate date ,
                                double amount , PaymentType type , String studendtCode) throws IOException {
-        Path folderPath = Paths.get(System.getProperty("user.home"),"bakkou-data","payments");
-        if (!Files.exists(folderPath)){
-            Files.createDirectories(folderPath);
-        }
-        String fileName = UUID.randomUUID().toString();
-        Path filePath = Paths.get(System.getProperty("user.home"),"bakkou-data","payments",fileName+".pdf");
-        Files.copy(file.getInputStream(),filePath);
-        Student student = studentRepository.findByCode(studendtCode);
-        Payment payment = Payment.builder()
-                .date(date).type(type).student(student)
-                .amount(amount)
-                .status(PaymentStatus.CREATED)
-                .file(filePath.toUri().toString())
-                .build();
-        return paymentRepository.save(payment);
+       return this.paymentService.SavePayment(file,date,amount,type,studendtCode);
     }
 
     @GetMapping(value = "/paymentFile/{paymentId}",produces = MediaType.APPLICATION_PDF_VALUE)
     public byte[] getPaymentFile(@PathVariable Long paymentId) throws IOException {
-        Payment payment = paymentRepository.findById(paymentId).get();
-        return Files.readAllBytes(Path.of(URI.create(payment.getFile())));
+            return paymentService.getPaymentFile(paymentId);
 
     }
 
