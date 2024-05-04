@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.container{
+  padding:10px;
+}
+/* Styles pour un thème blanc */
+body {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Autres styles à ajuster selon les besoins */
+/* Fond du menu latéral */
+.sidebar {
+  background-color: white; /* Blanc */
+  border-right: 1px solid #ccc; /* Bordure grise claire */
+}
+
+/* Fond de l'en-tête */
+.header {
+  background-color: white; /* Blanc */
+  border-bottom: 1px solid #ccc; /* Bordure grise claire */
+}
+
+/* Fond du contenu principal */
+.content {
+  background-color: white; /* Blanc */
+  color: black; /* Texte en noir pour plus de contraste */
+}

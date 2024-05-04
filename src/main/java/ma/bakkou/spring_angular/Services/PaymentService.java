@@ -35,7 +35,7 @@ public class PaymentService {
     }
 
 
-    public Payment SavePayment(MultipartFile file , LocalDate date ,
+    public Payment savePayment(MultipartFile file , LocalDate date ,
                                double amount , PaymentType type , String studendtCode) throws IOException {
         Path folderPath = Paths.get(System.getProperty("user.home"),"bakkou-data","payments");
         if (!Files.exists(folderPath)){

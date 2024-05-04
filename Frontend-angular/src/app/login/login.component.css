@@ -1,0 +1,33 @@
+mat-form-field {
+  display: block;
+}
+.form-login {
+  width: 400px;
+  flex: auto;
+  margin: auto;
+}
+.login-container {
+  background-color: white; /* Changement du fond en blanc */
+  border: 1px solid #ccc; /* Bordure grise légère */
+}
+
+.input-field {
+  background-color: #fff; /* Fond des champs de texte en blanc */
+  border: 1px solid #ddd; /* Bordure des champs en gris clair */
+}
+
+.button {
+  background-color: purple; /* Bouton en violet, comme vous avez déjà */
+  color: white; /* Texte du bouton en blanc */
+}
+.container {
+  display: grid;
+  justify-content: center; /* Centrage horizontal */
+  align-items: center; /* Centrage vertical */
+  height: 100vh; /* Prend toute la hauteur de la fenêtre */
+}
+
+.white-title{
+  color: white;
+  margin-bottom: 20px;
+}
